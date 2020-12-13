@@ -1,0 +1,6 @@
+{
+  "tableName": "Worker",
+  "columns": "C1, C2",
+  "counter": 3,
+  "fileName": "data.txt"
+}

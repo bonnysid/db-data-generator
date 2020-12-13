@@ -1,0 +1,30 @@
+{
+  "name": "db-data-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonnysid/db-data-generator.git"
+  },
+  "keywords": [
+    "data",
+    "generator"
+  ],
+  "author": "bonnysid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bonnysid/db-data-generator/issues"
+  },
+  "homepage": "https://github.com/bonnysid/db-data-generator#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
