@@ -12,12 +12,14 @@ const getRandomEmail = () => {
     let result = '';
     const words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     const maxPosition = words.length - 1;
-    for(let i = 0; i < Math.floor ( Math.random() * 15 ); i++ ) {
+    for(let i = 0; i < Math.floor ( Math.random() * 15 + 10); i++ ) {
         const position = Math.floor ( Math.random() * maxPosition );
         result = result + words.charAt(position);
     }
     return result +'@mail.ru';
 }
+
+const question = (str) => new Promise((resolve, reject) => rl.question(str, resolve))
 
 const getRandomPhoneNumber = (div = '-') => {
     const randN = () => Math.floor(Math.random() * 9);
@@ -40,22 +42,11 @@ const getRandomNum = (count) => Math.floor(Math.random() * count);
 const getRandomData = (data) => data[getRandomNum(data.length - 1)];
 
 const setSettings = async () => {
-    await rl.question('Table Name: ',(ans) => {
-        settings.tableName = ans;
-        rl.question('Columns: ',(ans) => {
-            settings.columns = `(${ans})`;
-            rl.question('Count of loops: ',(ans) => {
-                settings.counter = +ans;
-                rl.question('Output file: ',(ans) => {
-                    settings.fileName = ans;
-                    rl.close();
-                })
-            });
-        });
-    });
-
-
-
+    await question('Table Name: ').then(ans => settings.tableName = ans);
+    await question('Columns: ').then(ans => settings.columns = `(${ans})`);
+    await question('Count of loops: ').then((ans) => settings.counter = +ans);
+    await question('Output file: ').then((ans) => settings.fileName = ans);
+    rl.close();
 }
 
 const generateFilm = (film) => {
@@ -78,16 +69,16 @@ const generateFilms = () => DB.films.reduce((result, film) => result += generate
 
 const generateEmployer = () => {
     return `(
-        ${getRandomData(DB.works)},
-        ${getRandomData(DB.names)},
-        ${getRandomData(DB.surnames)},
-        ${getRandomData(DB.genders)},
-        ${getRandomPhoneNumber()},
-        ${getRandomEmail()},
-        ${getRandomData(DB.countries)},
+        '${getRandomData(DB.works)}',
+        '${getRandomData(DB.names)}',
+        '${getRandomData(DB.surnames)}',
+        '${getRandomData(DB.genders)}',
+        '${getRandomPhoneNumber()}',
+        '${getRandomEmail()}',
+        '${getRandomData(DB.countries)}',
         ${getRandomNum(100000)},
         ${0}
-    ),`
+    )`
 }
 
 const generateSalesman = () => {
@@ -106,16 +97,16 @@ const generateSalesman = () => {
 const generateValues = (counter = settings.counter, callback) => {
     let res = '';
     for(let i = 0; i < counter; i++) {
-        res += callback();
+        if (i !== counter - 1) res += `${callback()},`;
+        else res += `${callback()};`
     }
     return res;
 }
 
-const makeFile = (settings, values) => fs.writeFile(`${__dirname}/${settings.fileName}`, `INSERT INTO ${settings.tableName} (${settings.columns}) VALUES ${values}`, err => console.log(err));
+const makeFile = (settings, values) => fs.writeFile(`${__dirname}/${settings.fileName}`, `INSERT INTO ${settings.tableName} ${settings.columns} VALUES ${values}`, err => console.log(err));
 
 const startProgram = async () => {
     await setSettings();
-    console.log(settings.tableName);
     switch (settings.tableName) {
         case 'Видео':
             makeFile(settings, generateFilms());
