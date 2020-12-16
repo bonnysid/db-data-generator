@@ -43,7 +43,15 @@ const getRandomData = (data) => data[getRandomNum(data.length - 1)];
 
 const setSettings = async () => {
     await question('Table Name: ').then(ans => settings.tableName = ans);
-    await question('Columns: ').then(ans => settings.columns = `(${ans})`);
+    await question('Columns: ').then(ans => {
+        settings.columns = `(${ans})`;
+        settings.workedColumns = ans.split(',');
+    });
+    for (let i = 0; i < settings.workedColumns.length; i++) {
+        console.log(`Select one of this data's to ${settings.workedColumns[i]}: `);
+        for(key in DB) console.log(key);
+        await question(`${settings.workedColumns[i]}: `).then(ans => settings.configOfColumns[settings.workedColumns[i]] = ans);
+    }
     await question('Count of loops: ').then((ans) => settings.counter = +ans);
     await question('Output file: ').then((ans) => settings.fileName = ans);
     rl.close();
@@ -92,6 +100,12 @@ const generateSalesman = () => {
         ${getRandomPhoneNumber()},
         ${getRandomNum(3)}
     ),`
+}
+
+const generateObject = (columns, values) => {
+    return `(
+        
+    )`;
 }
 
 const generateValues = (counter = settings.counter, callback) => {
