@@ -105,7 +105,7 @@ const DataGenerator = {
     generateObject(config = this._settings.configOfColumns) {
         let res = '';
         for(let value in config) {
-            if(value.search(/^get/gm) !== -1) res += this[value] + ',';
+            if(value.search(/^get/gm) !== -1) res += this[value]() + ',';
             else res += this._getRandomData(this._dataBase[value]) + ',';
         }
         res = res.substr(0, res.length - 1);

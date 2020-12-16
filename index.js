@@ -135,5 +135,5 @@ const startProgram = async () => {
     }
 }
 
-DataGenerator.showData();
+DataGenerator['showData']();
 
