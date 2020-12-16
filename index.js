@@ -6,6 +6,7 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+const DataGenerator = require('./DataGenerator');
 let values;
 
 const getRandomEmail = () => {
@@ -134,4 +135,5 @@ const startProgram = async () => {
     }
 }
 
-startProgram();
+DataGenerator.showData();
+

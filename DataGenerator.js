@@ -32,8 +32,25 @@ const DataGenerator = {
     _question(str) {
         return new Promise((resolve, reject) => this._rl.question(str, resolve));
     },
+    _getRandomData(data) {
+        return data[this.getRandomNum(data.length - 1)];
+    },
 
-    getSettings() {
+    makeFile(settings, values)  {
+        fs.writeFile(`${__dirname}/${this._settings.fileName}`, `INSERT INTO ${this._settings.tableName} ${this._settings.columns} VALUES ${values}`, err => {
+            if(err) console.log(err);
+        });
+    },
+
+    get DB() {
+        return this._dataBase;
+    },
+
+    set DB(DB) {
+        this._dataBase = DB;
+    },
+
+    get Settings() {
         return this._settings;
     },
 
@@ -45,7 +62,8 @@ const DataGenerator = {
         });
         for (let i = 0; i < this._settings.workedColumns.length; i++) {
             console.log(`Select one of this data's to ${this._settings.workedColumns[i]}: `);
-            for(let key in DB) console.log(key);
+            this.showData();
+            this.showCommands();
             await this._question(`${this._settings.workedColumns[i]}: `).then(ans => this._settings.configOfColumns[this._settings.workedColumns[i]] = ans);
         }
         await this._question('Count of loops: ').then((ans) => this._settings.counter = +ans);
@@ -84,11 +102,38 @@ const DataGenerator = {
         return Math.floor(Math.random() * count + displacement);
     },
 
-    getRandomData(data) {
-        return data[this.getRandomNum(data.length - 1)];
-    }
+    generateObject(config = this._settings.configOfColumns) {
+        let res = '';
+        for(let value in config) {
+            if(value.search(/^get/gm) !== -1) res += this[value] + ',';
+            else res += this._getRandomData(this._dataBase[value]) + ',';
+        }
+        res = res.substr(0, res.length - 1);
+        return `(
+            ${res}
+        )`;
+    },
 
+    generateValues(counter = this._settings.counter, callback) {
+        let res = '';
+        for(let i = 0; i < counter; i++) {
+            if (i !== counter - 1) res += `${callback()},`;
+            else res += `${callback()};`
+        }
+        return res;
+    },
+
+    showData() {
+        for(let key in DB) console.log(key);
+    },
+
+    showCommands() {
+        for(let key in this) if (key.search(/^get/gm) !== -1 ) console.log(key);
+    },
+
+    async start() {
+        await this.setSettings();
+    }
 }
 
-module.exports.DataGenerator = DataGenerator;
-export default DataGenerator;
+module.exports = DataGenerator;
