@@ -1,8 +1,0 @@
-{
-  "tableName": "Worker",
-  "columns": "C1, C2",
-  "workedColumns": [],
-  "configOfColumns": {},
-  "counter": 3,
-  "fileName": "data.txt"
-}
