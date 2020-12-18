@@ -1,0 +1,2 @@
+CREATE INDEX id_жанра ON Любимые_жанры (id_жанра);
+CREATE INDEX id_клиента ON Любимые_жанры (id_клиента);

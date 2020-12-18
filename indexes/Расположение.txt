@@ -1,0 +1,5 @@
+CREATE INDEX id_товара ON Расположение (id_товара);
+CREATE INDEX id_склада ON Расположение (id_склада);
+CREATE INDEX Отдел ON Расположение (Отдел);
+CREATE INDEX Номер_шкафчика ON Расположение (Номер_шкафчика);
+CREATE INDEX Полка ON Расположение (Полка);

@@ -1,0 +1,9 @@
+CREATE INDEX Должность ON Работник (Должность);
+CREATE INDEX Имя ON Работник (Имя);
+CREATE INDEX Фамилия ON Работник (Фамилия);
+CREATE INDEX Пол ON Работник (Пол);
+CREATE INDEX Телефон ON Работник (Телефон);
+CREATE INDEX Email ON Работник (Email);
+CREATE INDEX Адрес ON Работник (Адрес);
+CREATE INDEX Зарплата ON Работник (Зарплата);
+CREATE INDEX Количество_выговоров ON Работник (Количество_выговоров);

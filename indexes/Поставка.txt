@@ -1,0 +1,5 @@
+CREATE INDEX id_работника ON Поставка (id_работника);
+CREATE INDEX id_поставщика ON Поставка (id_поставщика);
+CREATE INDEX id_склада ON Поставка (id_склада);
+CREATE INDEX Сумма ON Поставка (Сумма);
+CREATE INDEX Дата ON Поставка (Дата);

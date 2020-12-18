@@ -1,0 +1,5 @@
+CREATE INDEX Имя ON Клиент (Имя);
+CREATE INDEX Фамилия ON Клиент (Фамилия);
+CREATE INDEX Отчество ON Клиент (Отчество);
+CREATE INDEX Телефон ON Клиент (Телефон);
+CREATE INDEX Email ON Клиент (Email);
