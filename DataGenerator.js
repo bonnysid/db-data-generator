@@ -36,7 +36,7 @@ const DataGenerator = {
         return new Promise((resolve, reject) => this._rl.question(str, resolve));
     },
     _getRandomData(data) {
-        return `'${data[this.getRandomNum(data.length - 1)]}'`;
+        return `'${data[this.getRandomNum(data.length)]}'`;
     },
     _pullOfTasks: {
 
