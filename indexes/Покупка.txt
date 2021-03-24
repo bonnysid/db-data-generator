@@ -1,5 +1,0 @@
-CREATE INDEX id_товара ON Покупка (id_товара);
-CREATE INDEX id_клиента ON Покупка (id_клиента);
-CREATE INDEX id_работника ON Покупка (id_работника);
-CREATE INDEX Дата ON Покупка (Дата);
-CREATE INDEX Стоимость ON Покупка (Стоимость);

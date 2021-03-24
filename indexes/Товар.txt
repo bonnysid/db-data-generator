@@ -1,4 +1,0 @@
-CREATE INDEX id_видео ON Товар (id_видео);
-CREATE INDEX Цена ON Товар (Цена);
-CREATE INDEX Количество ON Товар (Количество);
-CREATE INDEX Производитель ON Товар (Производитель);
